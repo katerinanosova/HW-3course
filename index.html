@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,19 @@
 </head>
 
 <body class="container">
-    <div class="infoContainer">
+    <form class="infoContainer">
         <h1 class="title">Выбери сложность</h1>
         <div class="levelsBox">
-            <button class="level">1</button>
-            <button class="level">2</button>
-            <button class="level">3</button>
+            <input type="radio" id="level1" class="level" value="1" name="gameLevel">
+            <label for="level1">1</label>
+            <input type="radio" id="level2" class="level" value="2" name="gameLevel">
+            <label for="level2">2</label>
+            <input type="radio" id="level3" class="level" value="3" name="gameLevel">
+            <label for="level3">3</label>
         </div>
-        <button class="button">Старт</button>
-    </div>
+        <button type="submit" class="button">Старт</button>
+    </form>
 
 </body>
+
 </html>
