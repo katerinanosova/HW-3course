@@ -6,14 +6,13 @@
     src: url(./fonts/stratosskyengweb-regular.woff);
 }
 
-
 *{
     padding: 0;
     margin: 0;
     font-family: 'Stratos';
 }
 
-.container {
+.app {
     background-color: #004980;
     height: 100vh;
     display: flex;
