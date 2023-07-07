@@ -1,9 +1,11 @@
-let page = 'START_PAGE';
+import { START_PAGE, GAME_LEVEL_1, GAME_LEVEL_2, GAME_LEVEL_3  } from "./pages.js";
+
+export let page = START_PAGE
 
 const appEl = document.querySelector('.app');
 
 const renderApp = () => {
-    if (page === 'START_PAGE') {
+    if (page === START_PAGE) {
         const startPageHtml = `
             <form id="levelForm" class="infoContainer">
             <h1 class="title">Выбери сложность</h1>
@@ -25,17 +27,17 @@ const renderApp = () => {
             const level = document.getElementsByName('gameLevel');
             for (let i = 0; i < level.length; i++) {
                 if (level[i].checked && level[i].value === '1') {
-                    page = 'GAME_PAGE_LEVEL_1';
+                    page = GAME_LEVEL_1;
                     renderApp();
                 }
 
                 else if (level[i].checked && level[i].value === '2') {
-                    page = 'GAME_PAGE_LEVEL_2';
+                    page = GAME_LEVEL_2;
                     renderApp();
                 }
 
                 else if (level[i].checked && level[i].value === '3') {
-                    page = 'GAME_PAGE_LEVEL_3';
+                    page = GAME_LEVEL_3;
                     renderApp();
                 }
             }
@@ -44,31 +46,13 @@ const renderApp = () => {
     }
 
     
-    if (page === 'GAME_PAGE_LEVEL_1') {
+    if (page !== START_PAGE) {
         const gamePageLevel1Html = `
         <form class="infoContainer">
-            <h1 class="title">Уровень 1</h1>
+            <h1 class="title">Уровень ${page}</h1>
             </form>`;
 
         appEl.innerHTML = gamePageLevel1Html;
-    }
-
-    if (page === 'GAME_PAGE_LEVEL_2') {
-        const gamePageLevel2Html = `
-        <form class="infoContainer">
-            <h1 class="title">Уровень 2</h1>
-            </form>`;
-
-        appEl.innerHTML = gamePageLevel2Html;
-    }
-
-    if (page === 'GAME_PAGE_LEVEL_3') {
-        const gamePageLevel3Html = `
-        <form class="infoContainer">
-            <h1 class="title">Уровень 3</h1>
-            </form>`;
-
-        appEl.innerHTML = gamePageLevel3Html;
     }
 }
 renderApp();
