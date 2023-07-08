@@ -1,4 +1,5 @@
 import { START_PAGE, GAME_LEVEL_1, GAME_LEVEL_2, GAME_LEVEL_3  } from "./pages.js";
+import { cards } from "./cards.js";
 
 export let page = START_PAGE
 
@@ -48,11 +49,42 @@ const renderApp = () => {
     
     if (page !== START_PAGE) {
         const gamePageLevel1Html = `
-        <form class="infoContainer">
-            <h1 class="title">Уровень ${page}</h1>
-            </form>`;
+        <section class="app_gamePage">
+        <div class="header">
+            <div class="timer">
+                <div class="timerText">
+                    <p>min</p>
+                    <p>sek</p>
+                </div>
+                <div class="timerCount">
+                    <p>00.00</p>
+                </div>
+            </div>
+            <button class="button" id="restartButton">Начать заново</button>
+        </div>
+        <div class="gameBody">
+            <ul class="cardField">
 
-        appEl.innerHTML = gamePageLevel1Html;
+            </ul>
+        </div>
+    </section>`;
+
+    appEl.innerHTML = gamePageLevel1Html;
+
+    renderCards();
     }
 }
 renderApp();
+
+const renderCards = () => {
+    const cardsHtml = cards
+    .map((card, index) => {
+        return `
+        <li class="cardBack">
+            <img src="${card.image}" alt="">
+        </li>`;
+    }).join('');
+
+    document.querySelector('.cardField').innerHTML = cardsHtml;
+};
+

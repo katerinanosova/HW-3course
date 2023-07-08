@@ -20,6 +20,62 @@
     align-items: center;
 }
 
+.app_gamePage{
+    box-sizing: border-box;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 26px;
+
+}
+
+.header{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    column-gap: 558px;
+    padding-bottom: 26px;
+    
+}
+
+.timer{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.timerText{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 6px;
+    column-gap: 57px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #fff;
+}
+
+.timerCount{
+    font-size: 64px;
+    line-height: 62px;
+    color: #fff;
+}
+
+.cardField{
+    list-style: none;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    column-gap: 15px;
+    row-gap: 15px;
+}
+
+.cardBack {
+    width: 95px;
+    height: 133px;
+    background-image: url(img/cardBack.png);
+    background-size: cover;
+}
+
+
 .infoContainer {
     background-color: #C2F5FF;
     width: 480px;
