@@ -4,7 +4,7 @@ import {
   GAME_LEVEL_2,
   GAME_LEVEL_3,
 } from './pages.js';
-import { cards } from './cards.js';
+import { cards, shuffleCards } from './cards.js';
 import { getTimer, delay } from './timer.js';
 
 export let page = START_PAGE;
@@ -76,20 +76,14 @@ const renderApp = () => {
 renderApp();
 
 const renderCards = () => {
-  let newCards = [];
+  let newCards = shuffleCards({ page });
   let isPreviewing = true;
-
-  for (let i = 0; i < page * 3; i++) {
-    newCards.push(cards[Math.round(Math.random() * cards.length)]);
-  }
-
-  newCards = newCards.concat(newCards).sort(() => Math.random() - 0.5);
 
   const renderHtml = () => {
     const cardsHtml = newCards
       .map((card, index) => {
         return `
-        <li class="card-back">
+        <li data-index='${index}' class="card card-back">
             ${isPreviewing ? `<img src="${card.image}" alt=""></img>` : ''}
         </li>`;
       })
@@ -103,10 +97,21 @@ const renderCards = () => {
     if (isPreviewing === true) {
       isPreviewing = false;
       document.querySelector('.card-field').innerHTML = renderHtml();
+      initCardOpenListeners(newCards);
     }
   });
 
-  
 
-  
 };
+
+const initCardOpenListeners = (newCards) => {
+  const cardElements = document. querySelectorAll('.card');
+  for (const cardElement of cardElements) {
+    cardElement.addEventListener('click', () => {
+      const index = cardElement.dataset.index;
+      console.log(newCards[index].image);
+      cardElement.innerHTML = `
+        <img src="${newCards[index].image}" alt=""></img>`
+    })
+  }
+}

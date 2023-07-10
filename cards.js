@@ -1,3 +1,16 @@
+export function shuffleCards ({ page }) {
+  let chosenCards = [];
+  
+  for (let i = 0; i < page * 3; i++) {
+    chosenCards.push(cards[Math.round(Math.random() * cards.length)]);
+  }
+
+  return chosenCards.concat(chosenCards).sort(() => Math.random() - 0.5);
+
+};
+
+
+
 export const cards = [
   {
     suit: 'spades',
