@@ -10,3 +10,11 @@ export function getTimer({ time, action }) {
     return action;
   }, time * 1000);
 }
+
+export function delay(interval = 300) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, interval);
+    });
+  }

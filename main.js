@@ -5,7 +5,7 @@ import {
   GAME_LEVEL_3,
 } from './pages.js';
 import { cards } from './cards.js';
-import { getTimer } from './timer.js';
+import { getTimer, delay } from './timer.js';
 
 export let page = START_PAGE;
 
@@ -70,8 +70,6 @@ const renderApp = () => {
 
     appEl.innerHTML = gamePageLevel1Html;
 
-    
-
     renderCards();
   }
 };
@@ -85,25 +83,30 @@ const renderCards = () => {
     newCards.push(cards[Math.round(Math.random() * cards.length)]);
   }
 
-  newCards = newCards
-  .concat(newCards)
-  .sort(() => Math.random() - 0.5);
+  newCards = newCards.concat(newCards).sort(() => Math.random() - 0.5);
 
-  const renderHtml =() => {
+  const renderHtml = () => {
     const cardsHtml = newCards
-    .map((card, index) => {
-      return `
+      .map((card, index) => {
+        return `
         <li class="card-back">
             ${isPreviewing ? `<img src="${card.image}" alt=""></img>` : ''}
         </li>`;
-    })
-    .join('');
+      })
+      .join('');
     return cardsHtml;
-  }
+  };
 
-  getTimer({ time: 5, action: renderHtml() })
-  
   document.querySelector('.card-field').innerHTML = renderHtml();
+    
+  delay(5000).then(() => {
+    if (isPreviewing === true) {
+      isPreviewing = false;
+      document.querySelector('.card-field').innerHTML = renderHtml();
+    }
+  });
+
+  
 
   
 };
