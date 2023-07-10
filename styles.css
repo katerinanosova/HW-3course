@@ -1,139 +1,135 @@
 @font-face {
-    font-family: 'Stratos';
-    font-style: normal;
-    font-weight: 400;
-    src: url(./fonts/stratosskyengweb-regular.woff2);
-    src: url(./fonts/stratosskyengweb-regular.woff);
+  font-family: Stratos;
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/stratosskyengweb-regular.woff2');
+  src: url('./fonts/stratosskyengweb-regular.woff');
 }
 
-*{
-    padding: 0;
-    margin: 0;
-    font-family: 'Stratos';
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Stratos;
 }
 
 .app {
-    background-color: #004980;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #004980;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.app_gamePage{
-    box-sizing: border-box;
-    justify-content: flex-start;
-    flex-direction: column;
-    margin: 26px;
-
+.app-game-page {
+  box-sizing: border-box;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 26px;
 }
 
-.header{
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    column-gap: 558px;
-    padding-bottom: 26px;
-    
+.header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  column-gap: 558px;
+  padding-bottom: 26px;
 }
 
-.timer{
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+.timer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
-.timerText{
-    display: flex;
-    justify-content: flex-end;
-    padding-right: 6px;
-    column-gap: 57px;
-    font-size: 16px;
-    line-height: 16px;
-    color: #fff;
+.timer-text {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 6px;
+  column-gap: 57px;
+  font-size: 16px;
+  line-height: 16px;
+  color: #fff;
 }
 
-.timerCount{
-    font-size: 64px;
-    line-height: 62px;
-    color: #fff;
+.timer-count {
+  font-size: 64px;
+  line-height: 62px;
+  color: #fff;
 }
 
-.cardField{
-    list-style: none;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    column-gap: 15px;
-    row-gap: 15px;
+.card-field {
+  list-style: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  column-gap: 15px;
+  row-gap: 15px;
 }
 
-.cardBack {
-    width: 95px;
-    height: 133px;
-    background-image: url(img/cardBack.png);
-    background-size: cover;
+.card-back {
+  width: 95px;
+  height: 133px;
+  background-image: url('img/cardBack.png');
+  background-size: cover;
 }
 
-
-.infoContainer {
-    background-color: #C2F5FF;
-    width: 480px;
-    height: 459px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+.info-container {
+  background-color: #c2f5ff;
+  width: 480px;
+  height: 459px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .title {
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 48px;
-    width: 208px;
-    text-align: center;
-    color: #004980;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+  width: 208px;
+  text-align: center;
+  color: #004980;
 }
 
-.levelsBox{
-    display: flex;
-    column-gap: 20px;
+.levels-box {
+  display: flex;
+  column-gap: 20px;
 }
 
-.levelsBox input[type=radio] {
-    display: none;
+.levels-box input[type='radio'] {
+  display: none;
 }
 
-.levelsBox label {
-    width: 98px;
-    height: 98px;
-    background-color: #fff;
-    border-radius: 12px;
-    outline: none;
-    border: none;
-    font-weight: 400;
-    font-size: 64px;
-    line-height: 95px;
-    text-align: center;
-    color: #0080C1;
+.levels-box label {
+  width: 98px;
+  height: 98px;
+  background-color: #fff;
+  border-radius: 12px;
+  outline: none;
+  border: none;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 95px;
+  text-align: center;
+  color: #0080c1;
 }
 
-.levelsBox input[type=radio]:checked + label {
-    background-color: #0080C1;
-    color: #fff;
+.levels-box input[type='radio']:checked + label {
+  background-color: #0080c1;
+  color: #fff;
 }
 
-.button{
-    width: 264px;
-    height: 60px;
-    background-color: #7AC100;
-    border: none;
-    outline: none;
-    border-radius: 12px;
-    color: #fff;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 32px;
-
+.button {
+  width: 264px;
+  height: 60px;
+  background-color: #7ac100;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
 }
