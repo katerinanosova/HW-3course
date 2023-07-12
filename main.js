@@ -4,10 +4,11 @@ import {
   GAME_LEVEL_2,
   GAME_LEVEL_3,
 } from './pages.js';
-import { cards, shuffleCards } from './cards.js';
-import { getTimer, delay } from './timer.js';
+import { shuffleCards } from './cards.js';
+import { delay } from './timer.js';
 
 export let page = START_PAGE;
+export let resultArray = [];
 
 const appEl = document.querySelector('.app');
 
@@ -70,6 +71,11 @@ const renderApp = () => {
 
     appEl.innerHTML = gamePageLevel1Html;
 
+    document.getElementById('restartButton').addEventListener('click', () => {
+      page = START_PAGE;
+      renderApp();
+    });
+
     renderCards();
   }
 };
@@ -92,26 +98,40 @@ const renderCards = () => {
   };
 
   document.querySelector('.card-field').innerHTML = renderHtml();
-    
+
   delay(5000).then(() => {
     if (isPreviewing === true) {
       isPreviewing = false;
       document.querySelector('.card-field').innerHTML = renderHtml();
       initCardOpenListeners(newCards);
+      // console.log(resultArray);
     }
   });
-
-
 };
 
 const initCardOpenListeners = (newCards) => {
-  const cardElements = document. querySelectorAll('.card');
+  const cardElements = document.querySelectorAll('.card');
+
   for (const cardElement of cardElements) {
     cardElement.addEventListener('click', () => {
       const index = cardElement.dataset.index;
-      console.log(newCards[index].image);
       cardElement.innerHTML = `
-        <img src="${newCards[index].image}" alt=""></img>`
-    })
+        <img src="${newCards[index].image}" alt=""></img>`;
+
+      resultArray.push(newCards[index]);
+      if (resultArray.length > 1) {
+        if (resultArray[0] === resultArray[1]) {
+          delay(500).then(() => {
+            alert('Вы выиграли');
+          });
+          resultArray = [];
+        } else {
+          delay(500).then(() => {
+            alert('Вы проиграли');
+          });
+          resultArray = [];
+        }
+      }
+    });
   }
-}
+};
