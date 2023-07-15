@@ -69,7 +69,7 @@
 .card-back {
   width: 95px;
   height: 133px;
-  background-image: url('img/cardBack.png');
+  background-image: url('static/cardBack.png');
   background-size: cover;
 }
 
