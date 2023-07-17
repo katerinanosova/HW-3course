@@ -3,13 +3,17 @@ import {
   GAME_LEVEL_1,
   GAME_LEVEL_2,
   GAME_LEVEL_3,
+  RESULT_PAGE,
 } from './pages.js';
 import { shuffleCards } from './cards.js';
-import { delay } from './timer.js';
+import { delay, setTimer, sec, min } from './timer.js';
 import './styles.css';
 
 export let page = START_PAGE;
 export let resultArray = [];
+export let win = null;
+
+let interval;
 
 const appEl = document.querySelector('.app');
 
@@ -48,7 +52,7 @@ const renderApp = () => {
     });
   }
 
-  if (page !== START_PAGE) {
+  if (page !== START_PAGE && page !== RESULT_PAGE) {
     const gamePageLevel1Html = `
         <section class="app-game-page">
         <div class="header">
@@ -58,7 +62,7 @@ const renderApp = () => {
                     <p>sek</p>
                 </div>
                 <div class="timer-count">
-                    <p>00.00</p>
+                    <p><span id="minutes">00</span>.<span id="seconds">00</span></p>
                 </div>
             </div>
             <button class="button" id="restartButton">Начать заново</button>
@@ -74,10 +78,41 @@ const renderApp = () => {
 
     document.getElementById('restartButton').addEventListener('click', () => {
       page = START_PAGE;
+
+      clearInterval(interval);
       renderApp();
     });
 
     renderCards();
+  }
+
+  if (page === RESULT_PAGE) {
+    const resultPageHtml = `
+        <form id="levelForm" class="info-container">
+          <img src="static/${win ? `celebration` : `dead`}.png" alt="" />
+          <h1 class="title title_wide">${
+            win ? `Вы выиграли` : `Вы проиграли`
+          }</h1>
+          <div class="timer-box">
+            <p class="timer-box-text">Затраченное время:</p>
+            <p class="timer-box-time">${min < 10 ? `0` + min : min}.${
+              sec < 10 ? `0` + sec : sec
+            }</p>
+          </div>
+          <button type="submit" id="restartButton" class="button">
+            Играть снова
+          </button>
+        </form>`;
+
+    appEl.innerHTML = resultPageHtml;
+    document.getElementById('restartButton').addEventListener('click', () => {
+      page = START_PAGE;
+      win = null;
+      // sec = 0;
+      // min = 0;
+      clearInterval(interval);
+      renderApp();
+    });
   }
 };
 renderApp();
@@ -105,7 +140,8 @@ const renderCards = () => {
       isPreviewing = false;
       document.querySelector('.card-field').innerHTML = renderHtml();
       initCardOpenListeners(newCards);
-      // console.log(resultArray);
+      clearInterval(interval);
+      interval = setInterval(setTimer, 1000);
     }
   });
 };
@@ -121,17 +157,17 @@ const initCardOpenListeners = (newCards) => {
 
       resultArray.push(newCards[index]);
       if (resultArray.length > 1) {
-        if (resultArray[0] === resultArray[1]) {
-          delay(500).then(() => {
-            alert('Вы выиграли');
-          });
+        delay(500).then(() => {
+          clearInterval(interval);
+          page = RESULT_PAGE;
+          if (resultArray[0] === resultArray[1]) {
+            win = true;
+          } else {
+            win = false;
+          }
           resultArray = [];
-        } else {
-          delay(500).then(() => {
-            alert('Вы проиграли');
-          });
-          resultArray = [];
-        }
+          renderApp();
+        });
       }
     });
   }
