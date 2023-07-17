@@ -6,6 +6,7 @@ import {
 } from './pages.js';
 import { shuffleCards } from './cards.js';
 import { delay } from './timer.js';
+import './styles.css';
 
 export let page = START_PAGE;
 export let resultArray = [];
