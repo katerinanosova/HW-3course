@@ -108,8 +108,8 @@ const renderApp = () => {
     document.getElementById('restartButton').addEventListener('click', () => {
       page = START_PAGE;
       win = null;
-      sec = 0;
-      min = 0;
+      // sec = 0;
+      // min = 0;
       clearInterval(interval);
       renderApp();
     });
