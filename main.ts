@@ -6,7 +6,7 @@ import {
   RESULT_PAGE,
 } from './pages';
 import { shuffleCards, Card } from './cards';
-import { delay, setTimer, sec, min } from './timer';
+import { delay, setTimer, sec, min, resetTimer } from './timer';
 import './styles.css';
 
 export let page: number = START_PAGE;
@@ -83,6 +83,7 @@ const renderApp = () => {
       page = START_PAGE;
 
       clearInterval(interval);
+      resetTimer();
       renderApp();
     });
 
@@ -111,9 +112,9 @@ const renderApp = () => {
     document.getElementById('restartButton')?.addEventListener('click', () => {
       page = START_PAGE;
       win = false;
-      // sec = 0;
-      // min = 0;
+
       clearInterval(interval);
+      resetTimer();
       renderApp();
     });
   }

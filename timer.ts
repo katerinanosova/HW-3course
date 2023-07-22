@@ -9,6 +9,11 @@ export let min = 0;
 //   });
 // }
 
+export function resetTimer() {
+  sec = 0;
+  min = 0;
+}
+
 export function delay(interval: number = 300): Promise<void> {
   return new Promise<void>((resolve) => {
     setTimeout(() => {
