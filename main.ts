@@ -12,6 +12,7 @@ import './styles.css';
 export let page: number = START_PAGE;
 export let resultArray: Card[] = [];
 export let win: boolean = false;
+export let counter: number = 0;
 
 let interval;
 
@@ -166,40 +167,29 @@ const initCardOpenListeners = (newCards: Card[]) => {
       resultArray.push(newCards[index]);
       if (resultArray.length > 1) {
         delay(500).then(() => {
-          clearInterval(interval);
-          page = RESULT_PAGE;
           if (resultArray[0] === resultArray[1]) {
-            win = true;
+            counter++;
+            winGame();
+            resultArray = [];
           } else {
+            clearInterval(interval);
             win = false;
+            resultArray = [];
+            counter = 0;
+            page = RESULT_PAGE;
+            renderApp();
           }
-          resultArray = [];
-          renderApp();
         });
       }
     });
   });
-
-  // for (const cardElement of cardElements) {
-  //   cardElement.addEventListener('click', () => {
-  //     const index: number = Number(cardElement.dataset.index);
-  //     cardElement.innerHTML = `
-  //         <img src="${newCards[index].image}" alt=""></img>`;
-
-  //     resultArray.push(newCards[index]);
-  //     if (resultArray.length > 1) {
-  //       delay(500).then(() => {
-  //         clearInterval(interval);
-  //         page = RESULT_PAGE;
-  //         if (resultArray[0] === resultArray[1]) {
-  //           win = true;
-  //         } else {
-  //           win = false;
-  //         }
-  //         resultArray = [];
-  //         renderApp();
-  //       });
-  //     }
-  //   });
-  // }
 };
+
+function winGame() {
+  if (counter === page * 3) {
+    clearInterval(interval);
+    win = true;
+    page = RESULT_PAGE;
+    renderApp();
+  }
+}
