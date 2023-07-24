@@ -4,18 +4,19 @@ import {
   GAME_LEVEL_2,
   GAME_LEVEL_3,
   RESULT_PAGE,
-} from './pages.js';
-import { shuffleCards } from './cards.js';
-import { delay, setTimer, sec, min } from './timer.js';
+} from './pages';
+import { shuffleCards, Card } from './cards';
+import { delay, setTimer, sec, min, resetTimer } from './timer';
 import './styles.css';
 
-export let page = START_PAGE;
-export let resultArray = [];
-export let win = null;
+export let page: number = START_PAGE;
+export let resultArray: Card[] = [];
+export let win: boolean = false;
+export let counter: number = 0;
 
 let interval;
 
-const appEl = document.querySelector('.app');
+const appEl = document.querySelector('.app') as HTMLBodyElement;
 
 const renderApp = () => {
   if (page === START_PAGE) {
@@ -35,8 +36,11 @@ const renderApp = () => {
 
     appEl.innerHTML = startPageHtml;
 
-    document.getElementById('startButton').addEventListener('click', () => {
-      const level = document.getElementsByName('gameLevel');
+    document.getElementById('startButton')?.addEventListener('click', () => {
+      console.log(typeof document.getElementById('startButton'));
+      const level = document.getElementsByName(
+        'gameLevel',
+      ) as NodeListOf<HTMLInputElement>;
       for (let i = 0; i < level.length; i++) {
         if (level[i].checked && level[i].value === '1') {
           page = GAME_LEVEL_1;
@@ -76,10 +80,11 @@ const renderApp = () => {
 
     appEl.innerHTML = gamePageLevel1Html;
 
-    document.getElementById('restartButton').addEventListener('click', () => {
+    document.getElementById('restartButton')?.addEventListener('click', () => {
       page = START_PAGE;
 
       clearInterval(interval);
+      resetTimer();
       renderApp();
     });
 
@@ -105,12 +110,12 @@ const renderApp = () => {
         </form>`;
 
     appEl.innerHTML = resultPageHtml;
-    document.getElementById('restartButton').addEventListener('click', () => {
+    document.getElementById('restartButton')?.addEventListener('click', () => {
       page = START_PAGE;
-      win = null;
-      // sec = 0;
-      // min = 0;
+      win = false;
+
       clearInterval(interval);
+      resetTimer();
       renderApp();
     });
   }
@@ -133,12 +138,16 @@ const renderCards = () => {
     return cardsHtml;
   };
 
-  document.querySelector('.card-field').innerHTML = renderHtml();
+  const cardFieldElement = document.querySelector(
+    '.card-field',
+  ) as HTMLDivElement;
+
+  cardFieldElement.innerHTML = renderHtml();
 
   delay(5000).then(() => {
     if (isPreviewing === true) {
       isPreviewing = false;
-      document.querySelector('.card-field').innerHTML = renderHtml();
+      cardFieldElement.innerHTML = renderHtml();
       initCardOpenListeners(newCards);
       clearInterval(interval);
       interval = setInterval(setTimer, 1000);
@@ -146,29 +155,41 @@ const renderCards = () => {
   });
 };
 
-const initCardOpenListeners = (newCards) => {
+const initCardOpenListeners = (newCards: Card[]) => {
   const cardElements = document.querySelectorAll('.card');
 
-  for (const cardElement of cardElements) {
-    cardElement.addEventListener('click', () => {
-      const index = cardElement.dataset.index;
-      cardElement.innerHTML = `
-        <img src="${newCards[index].image}" alt=""></img>`;
+  cardElements.forEach((cardElement) => {
+    const divElement = cardElement as HTMLDivElement;
+    divElement.addEventListener('click', () => {
+      const index: number = Number(divElement.dataset.index);
+      divElement.innerHTML = `<img src="${newCards[index].image}" alt=""></img>`;
 
       resultArray.push(newCards[index]);
       if (resultArray.length > 1) {
         delay(500).then(() => {
-          clearInterval(interval);
-          page = RESULT_PAGE;
           if (resultArray[0] === resultArray[1]) {
-            win = true;
+            counter++;
+            winGame();
+            resultArray = [];
           } else {
+            clearInterval(interval);
             win = false;
+            resultArray = [];
+            counter = 0;
+            page = RESULT_PAGE;
+            renderApp();
           }
-          resultArray = [];
-          renderApp();
         });
       }
     });
-  }
+  });
 };
+
+function winGame() {
+  if (counter === page * 3) {
+    clearInterval(interval);
+    win = true;
+    page = RESULT_PAGE;
+    renderApp();
+  }
+}

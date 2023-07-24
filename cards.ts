@@ -1,5 +1,6 @@
+
 export function shuffleCards({ page }) {
-  let chosenCards = [];
+  let chosenCards: Card[]  = [];
 
   for (let i = 0; i < page * 3; i++) {
     chosenCards.push(cards[Math.round(Math.random() * cards.length)]);
@@ -8,7 +9,14 @@ export function shuffleCards({ page }) {
   return chosenCards.concat(chosenCards).sort(() => Math.random() - 0.5);
 }
 
-export const cards = [
+export type Card = {
+  suit: string;
+  rank: string;
+  image: string;
+};
+
+
+export const cards: Card[] = [
   {
     suit: 'spades',
     rank: 'ace',
