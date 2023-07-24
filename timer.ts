@@ -1,14 +1,6 @@
 export let sec = 0;
 export let min = 0;
 
-// export function delay(interval = 300) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve();
-//     }, interval);
-//   });
-// }
-
 export function resetTimer() {
   sec = 0;
   min = 0;
